@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان جودة الحياة الرقمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --accent: #EC4899;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-main);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 35px;
+            margin-bottom: 25px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .header-card {
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            color: white;
+            text-align: center;
+            border: none;
+        }
+
+        .header-card h1 { color: white; margin: 0 0 15px 0; font-size: 28px; }
+        .header-card p { opacity: 0.9; font-size: 17px; line-height: 1.6; }
+
+        h2 { color: var(--primary); font-size: 20px; margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; }
+        h2::before { content: ""; width: 8px; height: 24px; background: var(--accent); margin-left: 12px; border-radius: 4px; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-weight: 600; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); }
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #F1F5F9;
+            border-radius: 10px;
+            background: #F8FAFC;
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+        }
+
+        .scale-info {
+            background: #EEF2FF;
+            color: var(--primary);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .question-item {
+            padding: 25px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .question-text { font-size: 17px; font-weight: 500; margin-bottom: 18px; line-height: 1.5; }
+        
+        .options-group {
+            display: flex;
+            justify-content: space-between;
+            max-width: 500px;
+        }
+
+        .opt-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .opt-btn input {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .opt-btn span { font-size: 12px; color: var(--text-muted); font-weight: 600;}
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-submit:hover { background: #4338CA; transform: translateY(-2px); }
+        .btn-submit:disabled { background: #CBD5E1; cursor: not-allowed; }
+
+        #responseMsg { text-align: center; margin-top: 20px; font-weight: 600; }
+
+        @media (max-width: 600px) {
+            .options-group { overflow-x: auto; padding-bottom: 10px; }
+            .opt-btn span { font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="card header-card">
+        <h1>استبيان الحياة في العصر الرقمي</h1>
+        <p>نحن مهتمون بمعرفة كيف أثرت التكنولوجيا الحديثة على تفاصيل يومكم وعلاقاتكم مع الآخرين.</p>
+    </div>
+
+    <div class="card">
+        <h2>البيانات الديموغرافية</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>الاسم (اختياري)</label>
+                <input type="text" id="userName" placeholder="اكتب اسمك هنا...">
+            </div>
+            <div class="form-group">
+                <label>البلد</label>
+                <input type="text" id="country" placeholder="اكتب بلد إقامتك...">
+            </div>
+            <div class="form-group">
+                <label>الفئة العمرية</label>
+                <select id="age">
+                    <option value="" disabled selected>اختر الفئة...</option>
+                    <option>أقل من 18 سنة</option>
+                    <option>18 - 30 سنة</option>
+                    <option>31 - 50 سنة</option>
+                    <option>أكثر من 50 سنة</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>الجنس</label>
+                <select id="gender">
+                    <option value="" disabled selected>النوع...</option>
+                    <option>ذكر</option>
+                    <option>أنثى</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>المستوى التعليمي</label>
+                <select id="education">
+                    <option value="" disabled selected>اختر...</option>
+                    <option>تعليم عام</option>
+                    <option>جامعي</option>
+                    <option>دراسات عليا</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>آرائك حول التكنولوجيا والمجتمع</h2>
+        <div class="scale-info">
+            1: أعارض بشدة | 2: أعارض | 3: محايد | 4: أوافق | 5: أوافق بشدة
+        </div>
+        
+        <div id="questionsList"></div>
+
+        <div style="margin-top: 40px;">
+            <button class="btn-submit" onclick="sendSurvey()" id="btnSubmit">إرسال الاستبيان الآن ✨</button>
+            <div id="responseMsg"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxs3Lqi_RGHkTTYNGUgBv87VgfByrha4-RY2WtMHmFJ--KMyZRnzqQTKMiWDAANmPzSUw/exec";
+
+    const surveyQuestions = [
+        "ساهمت التكنولوجيا في تسهيل تواصلي مع أصدقائي وأقاربي البعيدين.",
+        "أقضي وقتاً على هاتفي أكثر مما أقضيه في الحديث المباشر مع عائلتي.",
+        "أعتمد بشكل كلي على التطبيقات الرقمية لإنجاز معاملاتي (بنكية، حكومية، تسوق).",
+        "أشعر أن وسائل التواصل الاجتماعي تزيد من شعوري بالضغط النفسي أو المقارنة.",
+        "وفرت لي الإنترنت فرصاً للتعلم وتطوير مهاراتي الشخصية لم تكن متاحة سابقاً.",
+        "أفضل إنهاء مهامي اليومية إلكترونياً بدلاً من الذهاب الفعلي للمقرات.",
+        "أجد صعوبة في الاسترخاء أو النوم بسبب استخدام الأجهزة قبل النوم.",
+        "أعتقد أن الخصوصية الشخصية أصبحت مفقودة في ظل التطور التقني الحالي.",
+        "التكنولوجيا جعلت حياتي أكثر تنظيماً وسهولة بشكل عام.",
+        "أخشى أن تفقد الأجيال القادمة المهارات الاجتماعية التقليدية بسبب الاعتماد التقني.",
+        "أثق في مصداقية الأخبار والمعلومات التي أقرأها على وسائل التواصل الاجتماعي.",
+        "استخدام التكنولوجيا الحديثة ساهم في تقليل نشاطي البدني اليومي.",
+        "أجد أن الترفيه الرقمي (ألعاب، منصات مشاهدة) أصبح بديلاً عن الهوايات التقليدية.",
+        "ساعدتني التقنية في إدارة ميزانيتي ومتابعة نفقاتي المالية بشكل أفضل.",
+        "أواجه صعوبة في التركيز لفترات طويلة بسبب تشتت الانتباه الذي تسببه الإشعارات.",
+        "أعتقد أن التكنولوجيا قلصت الفجوة الثقافية وجعلت العالم قرية صغيرة حقاً.",
+        "أشعر بالقلق من استبدال الذكاء الاصطناعي لوظيفتي أو مصدر دخلي في المستقبل.",
+        "التطبيقات الصحية والرياضية شجعتني على الاهتمام بصحتي بشكل أفضل.",
+        "ألاحظ أن الأطفال والمراهقين أصبحوا أكثر انعزالاً بسبب الأجهزة الذكية.",
+        "بشكل عام، أرى أن إيجابيات التكنولوجيا في حياتي تفوق سلبياتها."
+    ];
+
+    const listDiv = document.getElementById("questionsList");
+    
+    surveyQuestions.forEach((q, i) => {
+        const n = i + 1;
+        let opts = '';
+        for(let v=1; v<=5; v++) {
+            opts += `
+                <label class="opt-btn">
+                    <input type="radio" name="q${n}" value="${v}">
+                    <span>${v}</span>
+                </label>
+            `;
+        }
+        listDiv.innerHTML += `
+            <div class="question-item">
+                <div class="question-text">${n}. ${q}</div>
+                <div class="options-group">${opts}</div>
+            </div>
+        `;
+    });
+
+    function sendSurvey() {
+        const name = document.getElementById("userName").value.trim();
+        const country = document.getElementById("country").value.trim();
+        const age = document.getElementById("age").value;
+        const gender = document.getElementById("gender").value;
+        const education = document.getElementById("education").value;
+
+        if(!country || !age || !gender || !education) { 
+            alert("يرجى إكمال كافة البيانات المطلوبة"); 
+            return; 
+        }
+
+        for (let i = 1; i <= surveyQuestions.length; i++) {
+            if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                alert(`يرجى الإجابة على السؤال رقم ${i}`); return;
+            }
+        }
+
+        const btn = document.getElementById("btnSubmit");
+        const msg = document.getElementById("responseMsg");
+        
+        btn.disabled = true;
+        btn.innerText = "جاري الحفظ...";
+        msg.innerHTML = "⏳ جاري إرسال مساهمتكم القيمة...";
+
+        const formData = {
+            name: name || "غير محدد",
+            country: country,
+            age: age,
+            gender: gender,
+            education: education
+        };
+        for (let i = 1; i <= surveyQuestions.length; i++) {
+            formData[`q${i}`] = document.querySelector(`input[name="q${i}"]:checked`).value;
+        }
+
+        fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            msg.style.color = "var(--secondary)";
+            msg.innerHTML = "✅ تم استلام إجاباتكم بنجاح. شكراً لوقتكم!";
+            btn.style.display = "none";
+        }).catch(() => {
+            msg.style.color = "red";
+            msg.innerHTML = "❌ عذراً، حدث خطأ. حاول مرة أخرى.";
+            btn.disabled = false;
+        });
+    }
+</script>
+
+</body>
+</html>
